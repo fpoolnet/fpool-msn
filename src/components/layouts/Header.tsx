@@ -17,16 +17,16 @@ const Header = () => {
     <AppBar position="fixed" className={styles.header}>
       <Toolbar disableGutters className={styles.toolbar}>
         <Box>
-          <Link href="/" passHref>
+          <Link href="https://fpool.net" passHref>
             <Image
-              src="/assets/logo.svg"
+              src="/assets/icon.svg"
               alt="Mobile Logo"
               className={styles.mobileLogo}
-              width={120}
-              height={48}
+              width={50}
+              height={30}
             />
           </Link>
-          <Link href="/" passHref>
+          <Link href="https://fpool.net" passHref>
             <Image
               src="/assets/logo.svg"
               alt="Logo"
