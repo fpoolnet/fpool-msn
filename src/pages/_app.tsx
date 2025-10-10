@@ -32,14 +32,23 @@ const App = (props: any) => {
     <Provider store={AppStore}>
       <PersistGate persistor={persistor}>
         <Head>
+<<<<<<< HEAD
           <title>Fpool</title>
           <meta name="description" content="Fpool - Mining has never been so easy" />
+=======
+          <title>myShareNote</title>
+          <meta name="description" content="myShareNote - mySharenote You Hashboard" />
+>>>>>>> upstream/main
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96"></link>
           <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
           <link rel="shortcut icon" href="/assets/favicon.ico"></link>
           <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"></link>
+<<<<<<< HEAD
           <meta name="apple-mobile-web-app-title" content="Fpool"></meta>
+=======
+          <meta name="apple-mobile-web-app-title" content="myShareNote"></meta>
+>>>>>>> upstream/main
           <link rel="manifest" href="/assets/site.webmanifest"></link>
         </Head>
         <Script
