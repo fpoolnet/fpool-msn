@@ -11,7 +11,7 @@ import { errorMiddleware } from '@middlewares/ErrorMiddleware';
 import app from '@store/app/AppReducer';
 
 const persistConfig = {
-  key: 'shares',
+  key: 'shares-fp',
   storage,
   whitelist: ['address', 'settings', 'colorMode']
 };
