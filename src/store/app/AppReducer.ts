@@ -1,19 +1,11 @@
 /* Core */
-import {
-  PAYER_PUBLIC_KEY,
-  RELAY_URL,
-  WORK_PROVIDER_PUBLIC_KEY,
-  EXPLORER_URL,
-  DARK_MODE_DEFAULT,
-  DARK_MODE_FORCE
-} from 'src/config/config';
 import { ICustomError } from '@interfaces/ICustomError';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { NetworkTypeType } from '@objects/Enums';
 import { IHashrateEvent } from '@objects/interfaces/IHashrateEvent';
 import { IPayoutEvent } from '@objects/interfaces/IPayoutEvent';
 import { ISettings } from '@objects/interfaces/ISettings';
-import { IShareEvent } from '@objects/interfaces/IShareEvent';
+import { BlockStatusEnum, IShareEvent } from '@objects/interfaces/IShareEvent';
 import {
   changeRelay,
   connectRelay,
@@ -21,8 +13,17 @@ import {
   getPayouts,
   getShares,
   stopHashrates,
-  stopShares
-} from '@store/app/AppThunks-new';
+  stopShares,
+  syncBlock
+} from '@store/app/AppThunks';
+import {
+  DARK_MODE_DEFAULT,
+  DARK_MODE_FORCE,
+  EXPLORER_URL,
+  PAYER_PUBLIC_KEY,
+  RELAY_URL,
+  WORK_PROVIDER_PUBLIC_KEY
+} from 'src/config/config';
 
 /* Instruments */
 
@@ -38,6 +39,7 @@ export interface AppState {
   colorMode: 'light' | 'dark';
   isHashrateLoading: boolean;
   isSharesLoading: boolean;
+  isSharesSyncLoading: boolean;
   isPayoutsLoading: boolean;
   skeleton: boolean;
   relayReady?: boolean;
@@ -62,6 +64,7 @@ export const initialState: AppState = {
     explorer: EXPLORER_URL
   },
   isHashrateLoading: false,
+  isSharesSyncLoading: false,
   isSharesLoading: false,
   isPayoutsLoading: false,
   skeleton: false,
@@ -135,6 +138,21 @@ export const slice = createSlice({
       const event = action.payload;
       state.pendingBalance += event.amount;
       state.shares = [...state.shares, event];
+    },
+    updateShare: (
+      state: AppState,
+      action: PayloadAction<Partial<IShareEvent> & { id: string }>
+    ) => {
+      const payload = action.payload;
+      const index = state.shares.findIndex((share) => share.id === payload.id);
+      if (index !== -1) {
+        const original = state.shares[index];
+        const updated = { ...original, ...payload } as IShareEvent;
+        if (updated.status === BlockStatusEnum.Orphan) {
+          state.pendingBalance -= updated.amount;
+        }
+        state.shares[index] = updated;
+      }
     },
     addHashrate: (state: AppState, action: PayloadAction<IHashrateEvent>) => {
       const event = action.payload;
@@ -217,7 +235,7 @@ export const slice = createSlice({
         state.payouts = [];
         state.relayReady = undefined;
       })
-      .addCase(connectRelay.fulfilled, (state, action) => {
+      .addCase(connectRelay.fulfilled, (state) => {
         state.error = undefined;
         state.relayReady = true;
         state.skeleton = false;
@@ -228,6 +246,15 @@ export const slice = createSlice({
         state.isSharesLoading = false;
         state.skeleton = true;
         state.relayReady = false;
+      })
+      .addCase(syncBlock.pending, (state) => {
+        state.isSharesSyncLoading = true;
+      })
+      .addCase(syncBlock.fulfilled, (state) => {
+        state.isSharesSyncLoading = false;
+      })
+      .addCase(syncBlock.rejected, (state, action) => {
+        state.error = action.payload;
       });
   }
 });
@@ -238,6 +265,7 @@ export const {
   addHashrate,
   addPayout,
   addShare,
+  updateShare,
   addAddress,
   clearSettings,
   clearAddress,

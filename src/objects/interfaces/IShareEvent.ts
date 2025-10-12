@@ -8,4 +8,12 @@ export interface IShareEvent {
   shares: number;
   totalShares: number;
   timestamp: string;
+  status?: BlockStatusEnum;
+}
+
+export enum BlockStatusEnum {
+  New = 'NEW',
+  Valid = 'VALID',
+  Orphan = 'ORPHAN',
+  Checked = 'CHECKED'
 }
