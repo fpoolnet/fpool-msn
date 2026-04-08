@@ -8,9 +8,10 @@
   "block": "区块",
   "shares": "Sharenotes",
   "pendingShares": "待处理的 Sharenotes",
-  "pendingBalance": "待处理余额",
   "totalShares": "总 Sharenotes",
+  "amount": "金额",
   "unconfirmedBalance": "未确认余额",
+  "pendingBalance": "待处理余额",
   "orphanBlock": "孤块",
   "orphanCheck": "孤块检查",
   "profit": "利润 (FLC)",
@@ -44,24 +45,62 @@
   "payouts": "付款",
   "payoutsSummary": "付款摘要",
   "sharenotesSummary": "Sharenotes 摘要",
+  "workersProfit": "工人收益",
+  "workersInsights": "工人概览",
+  "workersInsights.count_other": "{{count}} 名工人",
+  "liveSharenotes": "实时 Sharenotes",
+  "liveSharenotes.block": "区块 #{{height}}",
+  "liveSharenotes.sum": "区块总和：{{label}}",
+  "liveSharenotes.sumLabel": "区块总和",
+  "liveSharenotes.empty": "暂无数据",
+  "liveSharenotes.count": "{{count}}",
+  "liveSharenotes.solved": "已解决",
+  "liveSharenotes.working": "解决中",
+  "liveSharenotes.auxChainsEmpty": "暂无辅助链数据",
+  "liveSharenotes.unknownChain": "未知链",
+  "liveSharenotes.lastBlock": "最近区块 #{{height}}",
+  "liveSharenotes.address": "地址：{{value}}",
+  "liveSharenotes.heightHash": "高度哈希：{{value}}",
+  "liveSharenotes.headerHash": "区块头哈希：{{value}}",
+  "liveSharenotes.headerHex": "区块头 hex：{{value}}",
+  "liveSharenotes.id": "事件 ID：{{id}}",
   "worker": "矿工",
-
   "info": {
     "payouts": "显示所有来自已成熟区块的已确认付款。每条记录代表一次支付，包含您各个矿工的有效 sharenotes 奖励。用于跟踪已完成的收益并核实区块确认后到账的资金。",
     "payoutsSummary": "按时间段展示您的总付款情况。每个柱状代表在该时间段收到的金额。帮助您监控付款频率并观察收益趋势。",
-    "sharenotesSummary": "按小时分组、按矿工堆叠显示有效 sharenotes。这些代表您已完成但尚未结算的挖矿贡献，用于等待区块成熟后发放奖励。可用于查看各矿工的活跃度和每小时表现。",
-    "pendingShares": "列出所有参与挖到但尚未成熟或支付的区块的矿工及其有效 sharenotes。显示将在区块确认完成后进入付款队列的待发收益。",
-    "hashrateChart": "显示所有矿工的总有效算力随时间变化情况。反映您的整体挖矿能力与稳定性——算力越平稳，表现越稳定。"
+    "sharenotesSummary": "按小时分组、按矿工堆叠显示有效 sharenotes。这些代表您已完成但尚未结算的挖矿贡献，用于等待区块成熟后发放奖励。",
+    "workersInsights": "每个工人的卡片概览，显示正在进行的 sharenote、打印速度以及最近打印的 sharenote。",
+    "pendingShares": "数据显示最近 500 条待处理 sharenote 或最近 2 天。列出所有参与挖到但尚未成熟或支付的区块的矿工及其有效 sharenotes。",
+    "workersProfit": "各工人未支付、未成熟的奖励随时间变化 — 区块确认后金额可能调整。",
+    "hashrateChart": "显示所有矿工的总有效算力随时间变化情况。反映您的整体挖矿能力与稳定性——算力越平稳，表现越稳定。",
+    "liveSharenotes": "实时图表显示每个父链区块中，工作节点打印的 sharenotes 数量。"
   },
-
   "pageNotFound": "未找到页面",
   "loading": "加载中...",
   "hashrateChart": "哈希率",
   "hashrate": "哈希率 (MH/s)",
+  "hashrateFilter": {
+    "all": "所有工人"
+  },
+  "hashrateModes": {
+    "live": "实时",
+    "emaShort": "EMA（快）",
+    "emaLong": "EMA（慢）"
+  },
+  "workersInsights.sharenotes": "Sharenote",
+  "workersInsights.meanTime": "平均时间",
+  "workersInsights.meanSharenote": "平均 sharenote",
+  "workersInsights.meanSharenoteShort": "平均",
+  "workersInsights.lastShare": "最新 Sharenote",
+  "workersInsights.unknownWorker": "未命名工人",
+  "workersInsights.info": {
+    "sharenotes": "该工人最近打印的 sharenote。",
+    "meanTime": "该工人打印一个 sharenote 所需的平均时间。",
+    "lastShare": "该工人上次打印 sharenote 以来经过的时间。"
+  },
   "previous": "上一页",
   "next": "下一页",
   "paymentHeight": "估算.支付",
-
   "languages": {
     "en": "English",
     "ru": "Русский",
@@ -102,11 +141,11 @@
       },
       {
         "q": "如何设置 mySharenote？",
-        "a": "打开“设置”，粘贴你的工作提供方给出的配置信息并保存。mySharenote 始终是只读的，只监听他们发布的 sharenote。"
+        "a": "打开[设置]，粘贴你的工作提供方给出的配置信息并保存。mySharenote 始终是只读的，只监听他们发布的 sharenote。"
       },
       {
         "q": "谁提供 mySharenote 的设置？",
-        "a": "你的矿池会提供配置信息——直接复制到“设置”即可。"
+        "a": "你的矿池会提供配置信息——直接复制到[设置]即可。"
       },
       {
         "q": "我需要新硬件或更换矿池吗？",
